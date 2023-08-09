@@ -1,0 +1,64 @@
+<form [formGroup]="form" class="flex flex-column align-items-center gap-3">
+    <div class="card formgrid grid">
+        <div class="field col">
+            <label for="firstName" class="text-base p-3  border-round w-full">First name</label>
+            <input class="text-base text-color outline-none p-2 tColorD border-1  border-round w-full" type="text"
+                formControlName="firstName" />
+        </div>
+        <div class="field col">
+            <label for="lastName" class="text-base p-3 border-round w-full">Last name</label>
+            <input class="text-base text-color outline-none p-2 tColorD border-1 border-round w-full" type="text"
+                formControlName="lastName" />
+        </div>
+    </div>
+    <ng-container *ngIf="flag == 'start'">
+        <div class="card formgrid grid">
+            <div class="field col">
+                <label for="car">Select car for shift</label>
+                <p-autoComplete formControlName="car" class="text-base text-color outline-none p-2  border-round w-full"
+                    [dropdown]="true" [suggestions]="carsFilter" (completeMethod)="filterCars($event)"
+                    field="registration" (onSelect)="changeMileage($event)"></p-autoComplete>
+            </div>
+        </div>
+    </ng-container>
+    <div class="card formgrid grid">
+        <div class="field col">
+            <label for="mileageStart">Mileage start</label>
+            <input id="mileageStart" type="number"
+                class="text-base text-color outline-none p-2 border-1  border-round w-full"
+                formControlName="mileageStart"/>
+        </div>
+        <ng-container *ngIf="flag == 'end'">
+            <div class="field col">
+                <label for="mileageEnd">Mileage finish</label>
+                <input id="mileageEnd" type="number"
+                    class="text-base text-color outline-none p-2 border-1 border-round w-full"
+                    min="{{mileageStart}}"
+                    formControlName="mileageEnd" />
+            </div>
+        </ng-container>
+    </div>
+    <ng-container *ngIf="flag == 'end'">
+        <div class="card formgrid grid">
+            <div class="field col">
+                <label for="expenses">Expenses</label>
+                <input id="expenses" type="number"
+                    class="text-base text-color outline-none p-2 border-1 border-round w-full"
+                    formControlName="expenses" [min]="0" />
+            </div>
+            <div class="field col">
+                <label for="description">Description</label>
+                <input id="description" type="text"
+                    class="text-base text-color outline-none p-2 border-1  border-round w-full"
+                    formControlName="description" [maxlength]="1000000000" />
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="message" [class]="[messageColorClass, 'mt-2']">
+        {{ message }}
+    </div>
+    <div class="card flex justify-content-center">
+        <button (click)="submit()" pButton label="{{button}}" [disabled]="form.invalid"></button>
+    </div>
+</form>

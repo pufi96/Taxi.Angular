@@ -1,0 +1,15 @@
+<div class="content">
+    <!-- <app-header></app-header> -->
+    <div id="mainBody">
+        <div class="container">
+            <div class="row">
+                <ng-container *ngIf="getLog()">
+                    <app-navigation></app-navigation>
+                </ng-container>
+                <div class="card flex justify-content-center mt-5">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

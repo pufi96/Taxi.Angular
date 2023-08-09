@@ -1,0 +1,24 @@
+<form [formGroup]="form" class="flex flex-column align-items-center gap-3">
+    <div class="card formgrid grid">
+        <div class="field col">
+            <label for="firstName" class="text-base p-3  border-round w-full">First name</label>
+            <input class="text-base text-color outline-none p-2 tColorD border-1  border-round w-full" type="text"
+                formControlName="firstName" />
+        </div>
+        <div class="field col">
+            <label for="lastName" class="text-base p-3 border-round w-full">Last name</label>
+            <input class="text-base text-color outline-none p-2 tColorD border-1 border-round w-full" type="text"
+                formControlName="lastName" />
+        </div>
+    </div>
+</form>
+<ng-container>
+    <div class="my-7" *ngIf="shifts; else notFound">
+        <app-shift-table [user]="user" [shifts]="shifts"></app-shift-table>
+    </div>
+</ng-container>
+<ng-template #notFound>
+    <div class="flex align-items-center justify-content-center">
+        Currently you have 0 finished shifts.
+    </div>
+</ng-template>

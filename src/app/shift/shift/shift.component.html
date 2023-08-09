@@ -1,0 +1,49 @@
+<h1>Rides</h1>
+<form [formGroup]="formService.form">
+    <div class="flex align-items-center justify-content-center flex-wrap my-5">
+        <div class="mx-2 my-2">
+            <label for="local">Is it local </label>
+            <p-checkbox formControlName="isLocal" value="true" inputId="local" (onChange)="isItLocal()"></p-checkbox>
+        </div>
+        <div class="flex flex-wrap justify-content-center" *ngIf="!isLocal">
+            <div class="mx-2 my-2">
+                <p-autoComplete formControlName="location" [dropdown]="true" [suggestions]="locationsFilter"
+                    (completeMethod)="filterLocations($event)" field="locationName" (onSelect)="changeLocation($event)"
+                    placeholder="Select start location"></p-autoComplete>
+            </div>
+            <div class="mx-2 my-2">
+                <p-autoComplete formControlName="locationPrice" [dropdown]="true" [suggestions]="locationPricesFilter"
+                    (completeMethod)="filterLocationPrices($event)" field="locationPriceNameFiltered"
+                    (onSelect)="changeLocationPrice($event)" placeholder="Select finish location"></p-autoComplete>
+            </div>
+        </div>
+        <div class="mx-2 my-2">
+            <p-inputNumber inputId="integeronly" formControlName="ridePrice" [min]="1"
+                placeholder="Ride price"></p-inputNumber>
+        </div>
+        <div class="mx-2 my-2">
+            <button (click)="addRide()" pButton label="Add Ride"
+                [disabled]="!formService.form.valid || !isLocal && (!formService.form.controls.location.value || !formService.form.controls.locationPrice.value)"></button>
+        </div>
+    </div>
+    <div class="flex align-items-center justify-content-center flex-wrap my-5">
+        <div class="mx-2 my-2">
+            <p-autoComplete formControlName="debtor" [dropdown]="true" [suggestions]="debtorsFilter"
+                (completeMethod)="filterDebtors($event)" field="debtorFullName" (onSelect)="changeDebtors($event)"
+                placeholder="Select debtor"></p-autoComplete>
+        </div>
+        <div class="mx-2 my-2">
+            <button (click)="clearDebtor()" pButton label="Clear debtor"></button>
+        </div>
+    </div>
+    <ng-container *ngIf="shift;  else notFound">
+        <div class="my-7">
+            <app-current-ride-table #tabela [shift]="shift"></app-current-ride-table>
+        </div>
+    </ng-container>
+    <ng-template #notFound>
+        <div class="flex align-items-center justify-content-center">
+            Currently you have 0 rides.
+        </div>
+    </ng-template>
+</form>

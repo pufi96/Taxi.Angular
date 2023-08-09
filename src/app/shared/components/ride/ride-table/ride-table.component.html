@@ -1,0 +1,37 @@
+<div class="card">
+    <p-table [value]="rides" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rides."
+        [rowsPerPageOptions]="[10, 25, 50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Price</th>
+                <th>Debtor</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ride>
+            <tr>
+                <td>{{ ride.index}}</td>
+                <td>{{ ride.isLocal? "Local" : "City" }}</td>
+                <td>{{ ride.locationStart? ride.locationStart : "" }}</td>
+                <td>{{ ride.locationEnd? ride.locationEnd : "" }}</td>
+                <td>{{ ride.ridePrice }}</td>
+                <td>{{ ride.debtor? ride.debtor.debtorFullName : "" }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td>Total earnings: {{earnings}} </td>
+                <td>Total expenses: {{expenses}}</td>
+                <td>Total turnover: {{turnover}}</td>
+                <td><!-- {{firstName}}'s earnings: {{uEarnings}}%--></td>
+                <td>Total {{firstName}}'s earnings: {{earnings*uEarnings/100}}</td>
+                <td></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

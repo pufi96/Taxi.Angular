@@ -1,0 +1,29 @@
+<div class="card flex justify-content-center mt-5">
+    <form [formGroup]="formService.form" class="flex flex-column align-items-center gap-3">
+        <div class="card flex justify-content-center">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username" class="textColor">Username</label>
+                <input class="text-base text-color outline-none p-2 border-1  border-round w-full"  formControlName="username" />
+            </div>
+        </div>
+        <ng-container *ngIf="formService.form.get('username') as control">
+            <ng-container *ngIf="control.hasError('required')">
+                This field is required
+            </ng-container>
+        </ng-container>
+        <div class="card flex justify-content-center">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="password" class="textColor">Password</label>
+                <input type="password" class="text-base text-color outline-none p-2 border-1  border-round w-full" formControlName="password" />
+            </div>
+        </div>
+        <ng-container *ngIf="formService.form.get('password') as control">
+            <ng-container *ngIf="control.hasError('required')">
+                This field is required
+            </ng-container>
+        </ng-container>
+        <div class="card flex justify-content-center">
+            <button (click)="login()" pButton label="Login" [disabled]="formService.form.invalid"></button>
+        </div>
+    </form>
+</div>
